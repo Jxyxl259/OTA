@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
+    <title>Title</title>
+    <link th:href="@{/css/index.css}" href="./css/index.css" rel="stylesheet">
+    <link th:href="@{/css/login.css}" href="./css/login.css" rel="stylesheet">
+
+
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- 首页js -->
+    <script th:src="@{/js/homepage.js}" src="./js/homepage.js"></script>
+    <script th:src="@{/js/common.js}" src="./js/common.js"></script>
+    <script th:src="@{/js/socket.js}" src="./js/socket.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <!-- 文件上传容器 -->
+    <div id="fileupload_container">
+        <div id="fileupload_from_div" class="fileupload_div">
+            <form id="fileupload_form" action="" method="post">
+                <table>
+                    <thead>
+                    <tr>
+                        <td colspan="2">
+                            <div class="fileupload_title_div">
+                                上传升级文件
+                            </div>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td width="150px">
+                            <div class="username_iocn_div">
+                                <input id="upgrade_file" type="file" name="ota" placeholder="请选择OTA文件" class="input_text"/>
+                            </div>
+                        </td>
+                        <td width="270px"></td>
+                    </tr>
+                    <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            <button id="upload_btn" class="upLoad" onclick="uploadOTAFile()">上传</button>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </form>
+        </div>
+    </div>
+
+
+
+</div>
+</body>
+</html>

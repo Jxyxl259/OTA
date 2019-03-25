@@ -1,0 +1,165 @@
+#login_body{
+    margin:0px;
+    height:800px;
+    font-family :  "microsoft yahei", "times", "arial";
+    color:burlywood;
+}
+
+
+#login_page_bg_img_div{
+    position: relative;
+    float: right;
+    padding: 0px 0px;
+    background: url(/pc/img/login_page/login_2.jpg) center no-repeat;
+    height: 500px;
+}
+
+.login_div{
+    float: right;
+    width: 420px;
+    height: 420px;
+    font-size: 20px;
+    border-radius: 20px;
+}
+
+/* 登录页面的form表单 外层 div样式 */
+#login_div{
+    float: right;
+    position: relative;
+    z-index: 5;
+    margin: 40px 150px 0px 0px;
+    background-color: transparent;
+}
+
+.vanish{
+    display:none ;
+}
+
+/* 登录表单的容器 */
+#login_form_container {
+    z-index: 50;
+    #display:none ;
+    position: fixed;
+    margin-left: 350px;
+    margin-top: 0px;
+    width: 420px;
+    height: 420px;
+}
+
+/* 主页面弹出 登录from表单 外层 div样式 */
+#login_from_div{
+    float: right;
+    margin: 0px;
+    background-color: darkgray;
+}
+
+div.login_div table{
+    border-collapse:collapse;
+    #border:1px solid red;
+    #width: 100%;
+    #height: 100%;
+    cellpadding:10px;
+
+}
+
+.user_header_div{
+    overflow: hidden;
+    #border:1px solid black;
+    width:120px; height:120px; margin:0 auto;
+    -webkit-border-radius:60px;
+    -moz-border-radius:60px;
+    -o-border-radius:60px;
+    border-radius:60px;
+}
+
+tbody tr{
+    height:80px;
+}
+
+.username_iocn_div{
+    float: right;
+    overflow: hidden;
+    border:none;
+    width:40px; height:40px; margin:0px 5px;
+    -webkit-border-radius:20px;
+    -moz-border-radius:20px;
+    -o-border-radius:20px;
+    border-radius:20px;
+}
+
+.password_iocn_div{
+    float: right;
+    overflow: hidden;
+    border:none;
+    width:40px; height:40px; margin:0px 5px;
+    -webkit-border-radius:20px;
+    -moz-border-radius:20px;
+    -o-border-radius:20px;
+    border-radius:20px;
+}
+
+
+
+
+
+div.login_div table td{
+    vertical-align:middle;
+    #border:1px solid blue;
+    #width:210px;
+}
+
+thead tr>td{
+    padding:10px;
+}
+
+tbody tr td div img{
+    float:right;
+}
+
+.rememberme_tr{
+    height: 30px;
+    padding:0px;
+}
+
+
+tfoot>tr>td button{
+    color:white;
+    font-size: 15px;
+    font-weight: bold;
+    float:left;
+    display:block;
+    width:110px;
+    padding:10px 20px 10px 20px;
+    #margin:20px 47px 10px;
+}
+
+.login{
+    border:1px solid #5d8b46;
+    border-radius: 10px;
+    background-color: #7EB662;
+    margin:20px 20px 10px 74px;
+}
+
+.regist{
+    border:1px solid #2666eb;
+    border-radius: 10px;
+    background-color: #3D93D7;
+    margin:20px 54px 10px 40px;
+}
+
+
+
+tbody input.input_text{
+    position:relative;
+    border: 2px solid #d0e4c2;
+    border-radius: 5px;
+    width: 160px;
+    height: 30px;
+    padding-left:10px;
+    background-color:white;
+
+}
+
+td.remember_me{
+    color: burlywood;
+}
