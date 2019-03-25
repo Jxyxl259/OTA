@@ -35,6 +35,12 @@ public class OTAUpgradeController {
         return new RequestResult<>(webSocketConfig.getWebSocketServerIpPort(), true);
     }
 
+
+    /**
+     * 固件上传服务器
+     * @param ota
+     * @return
+     */
     @RequestMapping("/uploadOTA")
     @ResponseBody
     public RequestResult<String> uploadOTAfile(MultipartFile ota){
@@ -56,6 +62,34 @@ public class OTAUpgradeController {
         }
 
         log.error("升级文件上传失败...");
+        return result;
+    }
+
+
+    /**
+     * 固件升级
+     * @param ota_name
+     * @return
+     */
+    @RequestMapping("/upgradeOTA")
+    @ResponseBody
+    public RequestResult<String> upgradeOTA(String ota_name){
+        RequestResult<String> result = new RequestResult<>(false);
+
+        if(ota_name == null){
+            result.setStatusCode(GlobalMessageEnum.FAILED.getCode());
+            result.setMessage("未指明OTA更新文件名...");
+            return result;
+        }
+
+        new Thread(()->{
+            otaUpgradeService.upgrade(ota_name);
+        }).start();
+
+        log.info("OTA开始升级...");
+        result.setSuccess(true);
+        result.setStatusCode(GlobalMessageEnum.SUCCESS.getCode());
+        result.setMessage("固件开始升级，请耐心等待");
         return result;
     }
 

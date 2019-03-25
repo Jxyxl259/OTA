@@ -1,10 +1,40 @@
+//package jiang.device_upgrade;
+//
+//import org.springframework.boot.SpringApplication;
+//import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+//import org.springframework.boot.autoconfigure.SpringBootApplication;
+//import org.springframework.boot.builder.SpringApplicationBuilder;
+//import org.springframework.boot.web.support.SpringBootServletInitializer;
+//import org.springframework.context.annotation.ComponentScan;
+//
+//@SpringBootApplication
+//@EnableAutoConfiguration
+//@ComponentScan({
+//        "jiang"
+//})
+//public class DeviceUpgradeApplication extends SpringBootServletInitializer {
+//
+//    public static void main(String[] args) {
+//        SpringApplication.run(DeviceUpgradeApplication.class, args);
+//    }
+//
+//    @Override
+//    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+//        return builder.sources(DeviceUpgradeApplication.class);
+//    }
+//}
+
+
+
+
+// ==============================================================================================================
+
+// 本地调试，开启SpringBoot 热部署
 package jiang.device_upgrade;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
@@ -12,14 +42,10 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan({
         "jiang"
 })
-public class DeviceUpgradeApplication extends SpringBootServletInitializer {
+public class DeviceUpgradeApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(DeviceUpgradeApplication.class, args);
     }
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(DeviceUpgradeApplication.class);
-    }
 }

@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>device_upgrade</name>
     <description>Device OTA Upgrade</description>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
 
     <properties>
@@ -30,7 +30,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <!-- 使用外置Servlet容器启动，需设置为provider -->
-           <!-- <scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
 
         <!-- 更新元数据，之后再编写yaml配置文件可以出现提示 -->
@@ -175,15 +175,7 @@
         </dependency>
 
 
-        <!-- springboot 热部署 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>
     </dependencies>
-
-
 
     <build>
         <plugins>
@@ -194,14 +186,6 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <fork>true</fork>
-                    <addResources>true</addResources>
                 </configuration>
             </plugin>
         </plugins>

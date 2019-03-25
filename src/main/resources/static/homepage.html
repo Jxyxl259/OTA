@@ -22,7 +22,7 @@
 <body>
 <div class="container">
     <!-- 文件上传容器 -->
-    <div id="fileupload_container">
+    <div id="fileupload_container" class="ota_container">
         <div id="fileupload_from_div" class="fileupload_div">
             <form id="fileupload_form" action="" method="post">
                 <table>
@@ -55,8 +55,38 @@
             </form>
         </div>
     </div>
-
-
+    <div id="ota_upgrade_info_container" class="ota_container">
+        <div id="ota_upgrade_info_div" class="ota_upgrade_info_div">
+                <table>
+                    <thead>
+                    <tr>
+                        <td colspan="2">
+                            <div class="fileupload_title_div">
+                                固件更新信息
+                            </div>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td width="150px">
+                            <div class="">
+                                <input id="ota_upgrade_file_name"  name="ota_name" placeholder="请填写要升级的ota文件名称(文件名带后缀)" class="input_text"/>
+                            </div>
+                        </td>
+                        <td width="270px"></td>
+                    </tr>
+                    <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            <button id="upgrade_btn" class="upLoad" onclick="upGrade()">更新</button>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+        </div>
+    </div>
+    chat_room-0.0.1-SNAPSHOT.war
 
 </div>
 </body>

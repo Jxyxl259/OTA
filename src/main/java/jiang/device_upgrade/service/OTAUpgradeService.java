@@ -1,12 +1,16 @@
 package jiang.device_upgrade.service;
 
-import jiang.device_upgrade.controller.OTAUpgradeController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @description:
@@ -17,6 +21,8 @@ import java.io.*;
 public class OTAUpgradeService {
 
     private static Logger log = LoggerFactory.getLogger(OTAUpgradeService.class);
+
+//    private static Base64
 
     /**
      * 将文件保存到服务器
@@ -89,5 +95,54 @@ public class OTAUpgradeService {
             }
         }
         return file;
+    }
+
+    /**
+     * 固件升级，
+     * 逻辑：
+     *      先将文件以流的形式读进内存中，
+     *      按照文件大小划分成报文段（128字节一个报文）
+     *      计算好总的报文数量，放到 ConcurrentHashMap中, 初始化容量为报文的总数量 -1 （报文下标从0开始）
+     *          计算容量（报文数量 文件大小/128  不能整除 文件大小/128 +1）
+     *          k -> 报文下标
+     *          v -> 报文数据
+     *
+     *      组织发送报文
+     *          e.g:
+     *              发送第一个数据包:                80 00 00(高位) 00(低位) 80(数据长度) + 128字节的数据
+     *              发送不能整除的最后一个数据包：     80 00 xx(高位) xx(低位) 05(数据长度) + 5字节的数据
+     * @param ota_name
+     */
+    public void upgrade(String ota_name) {
+
+        File f = new File("/data/OTA/" + ota_name);
+
+        // 文件大小
+        long dataLegth = f.length();
+
+        // 报文长度是否是128字节的整数倍
+        byte mod = Byte.valueOf("" + dataLegth%128);
+
+        // 要发送的报文总数量
+        Long packageNum = mod == 0 ? dataLegth/128 : (dataLegth/128) + 1;
+
+        // OTA升级Map
+        HashMap<Integer, String> dataMap = new HashMap(packageNum.intValue());
+
+        try {
+            AtomicInteger i = new AtomicInteger(0);
+            FileInputStream fis = new FileInputStream(f);
+            byte[] data = new byte[128];
+            while(fis.read(data)!=-1){
+                StringWriter sw = new StringWriter(128);
+                sw.write(new String(Base64.getEncoder().encode(data), StandardCharsets.UTF_8));
+                int index = i.getAndIncrement();
+                dataMap.put(index, sw.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // TODO 消息总线分发事件 触发固件升级报文的发送
     }
 }
