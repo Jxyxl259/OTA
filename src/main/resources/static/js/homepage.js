@@ -15,8 +15,29 @@ var uploadOTAFile = function(){
         contentType:false,
         async:false,
         success:function(data){
-            window.clearInterval(timer);
+            // window.clearInterval(timer);
             console.log("over..");
+        },
+        error:function(e){
+            alert("错误！！");
+            //window.clearInterval(timer);
+        }
+    });
+    return false;
+}
+
+var upGrade = function(){
+    $.ajax({
+        url:"/upgradeOTA",
+        type:"post",
+        data:{
+            "ota_name": $("#ota_upgrade_file_name").val(),
+            "ota_destination": $("#ota_upgrade_destination").val()
+        },
+        async:false,
+        success:function(data){
+            // window.clearInterval(timer);
+            console.log("start..");
         },
         error:function(e){
             alert("错误！！");

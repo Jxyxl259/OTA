@@ -1,13 +1,15 @@
 package jiang.device_upgrade.service;
 
+import jiang.device_upgrade.entity.OTAUpDateManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -22,7 +24,10 @@ public class OTAUpgradeService {
 
     private static Logger log = LoggerFactory.getLogger(OTAUpgradeService.class);
 
-//    private static Base64
+    public static ConcurrentHashMap<String, HashMap<Integer, byte[]>> otaFileNamePackageMapping = new ConcurrentHashMap<>(2);
+
+    @Resource(name = "otaManager")
+    private OTAUpDateManager otaManager;
 
     /**
      * 将文件保存到服务器
@@ -113,7 +118,7 @@ public class OTAUpgradeService {
      *              发送不能整除的最后一个数据包：     80 00 xx(高位) xx(低位) 05(数据长度) + 5字节的数据
      * @param ota_name
      */
-    public void upgrade(String ota_name) {
+    public void upgrade(String ota_name, String  destinationIpPort) {
 
         File f = new File("/data/OTA/" + ota_name);
 
@@ -127,22 +132,29 @@ public class OTAUpgradeService {
         Long packageNum = mod == 0 ? dataLegth/128 : (dataLegth/128) + 1;
 
         // OTA升级Map
-        HashMap<Integer, String> dataMap = new HashMap(packageNum.intValue());
+        HashMap<Integer, byte[]> dataMap = new HashMap<>(packageNum.intValue());
 
         try {
-            AtomicInteger i = new AtomicInteger(0);
+            int i = 0;
             FileInputStream fis = new FileInputStream(f);
             byte[] data = new byte[128];
-            while(fis.read(data)!=-1){
-                StringWriter sw = new StringWriter(128);
-                sw.write(new String(Base64.getEncoder().encode(data), StandardCharsets.UTF_8));
-                int index = i.getAndIncrement();
-                dataMap.put(index, sw.toString());
+            int len = -1;
+            while((len = fis.read(data, 0, 128)) != -1){
+                //StringWriter sw = new StringWriter(128);
+                // 使用base64 进行编码
+                // sw.write(new String(Base64.getEncoder().encode(data), StandardCharsets.UTF_8));
+                //sw.write(new String(data, StandardCharsets.UTF_8));
+//                dataMap.put(i++, sw.toString());
+                byte[] copy = Arrays.copyOf(data, 128);
+                dataMap.put(i++, copy);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // TODO 消息总线分发事件 触发固件升级报文的发送
+        otaFileNamePackageMapping.put(ota_name, dataMap);
+        otaManager.update(ota_name, destinationIpPort);
+
+        log.info("启用线程池，发送升级程序数据包...");
     }
 }

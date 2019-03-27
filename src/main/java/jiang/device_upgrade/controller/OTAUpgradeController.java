@@ -29,6 +29,12 @@ public class OTAUpgradeController {
     @Autowired
     private WebSocketConfig webSocketConfig;
 
+    @RequestMapping("/")
+    public String index(){
+        log.info("--------------------> 跳转首页");
+        return "homepage";
+    }
+
     @GetMapping("/getServerAddr")
     @ResponseBody
     public RequestResult<String> serverAddr(){
@@ -73,7 +79,7 @@ public class OTAUpgradeController {
      */
     @RequestMapping("/upgradeOTA")
     @ResponseBody
-    public RequestResult<String> upgradeOTA(String ota_name){
+    public RequestResult<String> upgradeOTA(String ota_name, String ota_destination){
         RequestResult<String> result = new RequestResult<>(false);
 
         if(ota_name == null){
@@ -83,7 +89,7 @@ public class OTAUpgradeController {
         }
 
         new Thread(()->{
-            otaUpgradeService.upgrade(ota_name);
+            otaUpgradeService.upgrade(ota_name, ota_destination);
         }).start();
 
         log.info("OTA开始升级...");

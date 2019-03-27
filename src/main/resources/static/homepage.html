@@ -55,12 +55,13 @@
             </form>
         </div>
     </div>
+
     <div id="ota_upgrade_info_container" class="ota_container">
         <div id="ota_upgrade_info_div" class="ota_upgrade_info_div">
                 <table>
                     <thead>
                     <tr>
-                        <td colspan="2">
+                        <td >
                             <div class="fileupload_title_div">
                                 固件更新信息
                             </div>
@@ -74,11 +75,17 @@
                                 <input id="ota_upgrade_file_name"  name="ota_name" placeholder="请填写要升级的ota文件名称(文件名带后缀)" class="input_text"/>
                             </div>
                         </td>
-                        <td width="270px"></td>
+                    </tr>
+                    <tr>
+                        <td width="150px">
+                            <div class="">
+                                <input id="ota_upgrade_destination"  name="ota_destination" placeholder="请填写升级固件主机地址及端口号使用:隔开" class="input_text"/>
+                            </div>
+                        </td>
                     </tr>
                     <tfoot>
                     <tr>
-                        <td colspan="2">
+                        <td >
                             <button id="upgrade_btn" class="upLoad" onclick="upGrade()">更新</button>
                         </td>
                     </tr>
