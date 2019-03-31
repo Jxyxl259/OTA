@@ -103,8 +103,14 @@ public class OTAUpDateManager {
      * 数据分包已经在service层分好，这里的 data就是 每个包的实际数据部分
      * 这里仅组织数据报
      * 数据报格式
-     *      xx xx(总的数据报个数，分高低位) H L(数据报下标 0 ~ packageNum-1) DL(后面真实数据长度) 数据
+     *      xx(总的数据报个数) H L(数据报下标 1 ~ packageNum) DL(后面真实数据长度) 数据 $(单条数据报结束标识)
      *      其中 H L分别为数据下标的高位和低位
+     *      e.g:
+     *      xx  H    L    DL   DATA                              $
+     *      d   0000 1    80   iVw0...daX=                       $
+     *      d   0000 d    17   lf8HnkKB3X0PnFcAAAAASUVORK5CYII=  $
+     *      d   0000 0000 0    EOF(last package send sign)       $
+     *
      * @return
      */
     public static String makeDataPackage(Integer totalPackageNum, Integer idx, byte[] data, boolean finished){
