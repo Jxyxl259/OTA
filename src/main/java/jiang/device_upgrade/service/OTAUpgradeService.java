@@ -8,11 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @description:
@@ -135,7 +133,7 @@ public class OTAUpgradeService {
         HashMap<Integer, byte[]> dataMap = new HashMap<>(packageNum.intValue());
 
         try {
-            int i = 0;
+            int i = 1;
             FileInputStream fis = new FileInputStream(f);
             byte[] data = new byte[128];
             int len = -1;
@@ -145,7 +143,7 @@ public class OTAUpgradeService {
                 // sw.write(new String(Base64.getEncoder().encode(data), StandardCharsets.UTF_8));
                 //sw.write(new String(data, StandardCharsets.UTF_8));
 //                dataMap.put(i++, sw.toString());
-                byte[] copy = Arrays.copyOf(data, 128);
+                byte[] copy = Arrays.copyOf(data, len);
                 dataMap.put(i++, copy);
             }
         } catch (IOException e) {
